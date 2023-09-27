@@ -1,0 +1,75 @@
+<snippet>
+	<content><![CDATA[
+struct info{
+  ll x;
+    ll merge(info &a, info &b){
+    
+   }
+};
+info t[4*N];
+info lazy[4*N];
+info d;
+void propagate(ll nd, ll L, ll R){
+  if(L !=R){
+    lazy[2*nd].x = lazy[nd].x;
+    lazy[2*nd+1].x = lazy[nd].x;
+  }
+  t[nd].x = lazy[nd].x;
+  lazy[nd].x = -1;
+}
+void build(ll nd,ll L , ll R){
+  
+  if(L == R){
+  //t[nd].x = a[L];
+    rr;
+  }
+  ll md = (L+R)/2;
+  build(2*nd,L,md);
+  build(2*nd+1,md+1,R);
+  t[nd].merge(t[2*nd],t[2*nd+1]);
+}
+void update(ll nd, ll L, ll R, ll l , ll r, ll ind){
+  if(lazy[nd].x != -1){
+    propagate(nd,L,R);
+  }
+  if(r<L || l>R){
+    rr;
+  }
+  if(l<=L && R<=r){
+    t[nd].x = ind;
+    if(L != R){
+      lazy[2*nd].x = ind;
+      lazy[2*nd+1].x = ind;
+    }
+    rr;
+  }
+  ll md = (L+R)/2;
+  update(2*nd,L,md,l,r,ind);
+  update(2*nd+1,md+1,R,l,r,ind);
+  t[nd].merge(t[2*nd],t[2*nd+1]);
+}
+info query(ll nd, ll L , ll R, ll l , ll r){
+  if(lazy[nd].x != -1){
+    propagate(nd,L,R);
+  }
+  if(L>r || R<l){
+    rr d;
+  }
+  if(L>=l && R<=r){
+    
+    rr t[nd];
+  }
+  ll md = (L+R)/2;
+  info p;
+  info pa = query(2*nd,L,md,l,r);
+  info pb = query(2*nd+1,md+1,R,l,r); 
+  p.merge(pa,pb);
+  rr p;
+  
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>SEGMENT_TREE</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope> 
+</snippet>

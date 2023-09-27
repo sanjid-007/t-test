@@ -1,0 +1,34 @@
+<snippet>
+	<content><![CDATA[
+vpll g[N];
+vector<bool> mark(N);
+vll dist(N);
+ll mn[N],id[N];
+void dijkstra(ll s)
+{
+   // fill(all(dist), inf);
+    fill(all(mark), false);
+    
+    priority_queue<pll, vpll, greater<pll> > pq;
+    pq.push({dist[s] = 0, s});
+    while (!pq.empty()) {
+        ll u = pq.top().ss;
+        pq.pop();
+        
+        if (mark[u]) continue; else mark[u] = true;
+        for(auto v : g[u])
+        {
+            if (dist[v.ff] > dist[u] + v.ss)
+            {
+                dist[v.ff] = dist[u] + v.ss;
+                pq.push({dist[v.ff], v.ff});
+            }
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>DIJKSTRA</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+ll x,y,d;
+void extended_euclide(ll a, ll b){
+	if(b == 0){
+	x = 1,y = 0,d = a;
+	rr;
+	}
+	extended_euclide(b,a%b);
+	ll x1 = y;
+	ll y1 = x - (a/b)*y;
+	x = x1;
+	y = y1;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>EXTENDED</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope> 
+</snippet>

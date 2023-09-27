@@ -1,0 +1,35 @@
+<snippet>
+	<content><![CDATA[
+#define maxn 2*N+5
+#define max_logn 20
+struct SparseMin{
+    ll log[maxn];
+    ll dp[max_logn][maxn];
+    SparseMin(){
+        log[1] = 0;
+        for (ll i = 2; i < maxn; i++)
+            log[i] = log[i/2] + 1;
+    }
+    void build(vector<ll> b)
+    {
+        ll n=b.size();
+        for (ll i = 0; i < n; ++i){
+            dp[0][i]=b[i];
+        }
+        for (ll j = 1; j < max_logn; j++)
+            for (ll i = 0; i + (1 << j) < maxn; i++)
+                dp[j][i] = min(dp[j - 1][i], dp[j - 1][i + (1 << (j - 1))]);
+    }
+    ll query(ll l,ll r)
+    {
+        if(l>r)return M;
+        ll j=log[r-l+1];
+        return min(dp[j][l],dp[j][r-(1<<j)+1]);
+    }
+}spmin;
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>SPARSE_TABLE</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope> 
+</snippet>

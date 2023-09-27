@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+typedef struct dataa{
+ll u,v,w,idx;
+dataa(){}
+dataa(ll u, ll v, ll w, ll idx):u(u),v(v),w(w),idx(idx){}
+}edge;
+dataa edges[N];
+void ck(ll idx, ll u, ll v, ll w){
+  edges[idx]=edge(u,v,w,idx);
+}
+bool cmp(dataa &a, dataa &b){
+  rr a.w<b.w;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>STRUCT-DSU</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope> 
+</snippet>

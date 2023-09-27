@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+struct node{
+  map<char,ll>m;
+  bool terminate = false;
+  ll cnt = 0;
+};
+struct trie{
+  node a[N];
+  ll ptr = 2;
+  void insert(string s){
+    ll cur = 1;
+    for(auto &c : s){
+      if(a[cur].m.count(c)){
+        cur = a[cur].m[c];
+      }
+      else{
+        a[cur].m[c] = ptr;
+        ptr++;
+        cur = a[cur].m[c];
+      }
+      a[cur].cnt++;
+    }
+    a[cur].terminate = true;
+  }
+  ll find(string s){
+    ll cur = 1;
+    for(auto &c : s){
+      if(a[cur].m.count(c)){
+        cur = a[cur].m[c];
+      }
+      else{
+       rr 0;
+      }
+    }
+    rr a[cur].cnt;
+  }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>TRIE_STRING</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

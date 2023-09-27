@@ -1,0 +1,11 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+	"font_size": 19,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"show_errors_inline": false,
+	"tests_file_suffix": "__tests",
+	"theme": "Default.sublime-theme"
+}

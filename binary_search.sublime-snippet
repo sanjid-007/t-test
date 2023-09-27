@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+ll ck(ll x){
+	
+}
+ll bs(ll l , ll r){
+	ll x;
+	while(l<=r){
+	ll md = (l+r)/2;
+
+	if(ck(md)){
+	l = md+1;
+	x = md;
+	}
+	else{
+	r = md-1;
+	}
+
+	}
+	rr x;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>BINARY_SEARCH</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope>
+</snippet>

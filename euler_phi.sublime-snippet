@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+ll eulerPhi( ll n)
+{
+
+    ll pf_idx = 0, pf=primes[pf_idx];
+    
+    ll ans=n;
+
+    while(pf*pf<=n)
+    {
+        if(n % pf == 0)
+        {
+            ans -= ans / pf;
+        }
+        while(n % pf == 0) n /= pf;
+
+        pf = primes[++pf_idx];
+    }
+    if(n != 1) ans -= ans / n;
+    return ans;
+}    
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>TOTIENT</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope>
+</snippet>

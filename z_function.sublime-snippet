@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+vector<ll> z_function(string s)
+{
+  ll n=sz(s);
+  vll z(n,0);
+  vll v;
+  for(ll i=1,l=0,r=0;i<n;i++)
+  {
+    if(i<=r)
+      z[i]=min(r-i+1, z[i-l]);
+    while(i+z[i]<n && s[z[i]]==s[i+z[i]])
+      z[i]++;
+    if(i+z[i]-1>r)
+      l=i, r=i+z[i]-1;
+  }
+  f(i,0,n){
+    v.pb(z[i]);
+  }
+  //srt(v);
+  return v;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>Z_FUNCTION</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope> 
+</snippet>

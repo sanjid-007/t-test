@@ -1,0 +1,114 @@
+<snippet>
+	<content><![CDATA[
+struct node {
+    ll left = 0, right = 0;
+    ll cnt = 0;
+};
+ 
+ 
+node a[N];
+ll ptr=2;
+struct trie{
+    void insert(ll n){
+        ll curr=1;
+        for(ll i =30;i>=0;i--){
+            if((n&(1ll<<i))==0){
+                if(!a[curr].left){
+                    a[curr].left=ptr++;
+                }
+                curr=a[curr].left;
+            }else{
+                if(!a[curr].right){
+                    a[curr].right=ptr++;
+                }
+                curr=a[curr].right;
+            }
+            a[curr].cnt++;
+        }
+    }
+    ll max_xor(ll x) {
+        ll curr = 1;
+        ll ans = 0;
+        for (ll i = 30; i >= 0; i--) {
+            if ((x & (1ll << i)) == 0) {
+                if (a[a[curr].right].cnt > 0) {
+                    curr = a[curr].right;
+                    ans |= (1ll << i);
+                } else {
+                    curr = a[curr].left;
+                }
+            } else {
+                if (a[a[curr].left].cnt > 0) {
+                    curr = a[curr].left;
+                    ans |= (1ll << i);
+                } else {
+                    curr = a[curr].right;
+                }
+            }
+        }
+        return ans;
+    }
+    void remove(ll x){
+        ll curr=1;
+        for(ll i=30;i>=0;i--){
+            if((x&(1ll<<i))==0){
+                curr=a[curr].left;
+            }else{
+                curr=a[curr].right;
+            }
+            a[curr].cnt--;
+        }
+    }
+    ll k_xor(ll x) { // number of subarray xor less than k
+        ll curr = 1;
+        ll ans = 0;
+        //trc(k,x);
+        for (ll i = 30; i >= 0; i--) {
+          if(check(k,i) == 0){
+            if ((x & (1ll << i)) == 0) {
+                if (a[a[curr].left].cnt > 0) {
+                    curr = a[curr].left;
+                    //ans |= (1ll << i);
+                } else {
+                    return ans;
+                }
+            } else {
+                if (a[a[curr].right].cnt > 0) {
+                    curr = a[curr].right;
+                    //ans |= (1ll << i);
+                } else {
+                   // curr = a[curr].left;
+                  rr ans;
+                }
+            }
+          }
+          else{
+            if ((x & (1ll << i)) == 0) {
+                if (a[a[curr].left].cnt > 0) {
+                   
+                    ans +=a[a[curr].left].cnt;
+                } 
+                if(1) {
+                    curr = a[curr].right;
+                }
+            } else {
+                if (a[a[curr].right].cnt > 0) {
+                   
+                    ans +=a[a[curr].right].cnt;
+                } 
+                if(1) {
+                    curr = a[curr].left;
+                }
+            }
+          }
+        }
+       // ans+=a[curr].cnt; //(less than k chaise)
+        return ans;
+    }
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>TRIE_BIT</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

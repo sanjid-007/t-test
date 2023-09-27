@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+#include<stdio.h>
+#include<iostream>
+#include<climits>
+#include<map>
+#include<cmath>
+#include<algorithm>
+#include<set>
+#include<stack>
+#include<deque>
+#include<vector>
+#include<stdlib.h>
+#include<string.h>
+#include<utility>
+#include<queue>
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>PREHEADER</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

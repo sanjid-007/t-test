@@ -1,0 +1,52 @@
+<snippet>
+	<content><![CDATA[
+  vll prime;vll primes;
+        void sieve(ll N)
+        {
+            prime.resize(N+1,0);
+            prime[1] = 1;
+           for(ll i = 4;i<=N;i+=2) prime[i] =1; 
+           for(ll i = 3;i*i<=N;i+=2){
+            if(prime[i] == 0)
+            {
+              for(ll j = i*i;j<=N;j+=2*i){
+                prime[j] = 1;
+              }
+            }
+           }
+           for(ll i = 2;i<=N;i++){
+            if(prime[i] == 0) primes.pb(i);
+           }
+        }
+        ll is_prime(ll n)
+    {
+      if(n<=1e6) return prime[n];
+      for(auto i: primes){
+        if(i>sqrt(n)) return 0;
+        if(n%i == 0) return 1;
+      }
+      return 0;
+    }
+    mll primefactors(ll n)
+    {
+      mll v;
+      ll pf_idx = 0,pf = primes[pf_idx];
+      while(pf*pf<=n)
+      {
+        while(n%pf == 0)
+        {
+          n/=pf;
+          v[pf]++;
+        }
+        pf = primes[++pf_idx];
+      }
+      if(n!=1) v[n]++;
+      return v;
+    }
+    
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>PRIMESEIVE</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,63 @@
+<snippet>
+	<content><![CDATA[
+vector<ll> factors(ll n){ // returns all factors of a given number
+    ll lim = sqrt(n);
+    vector<ll> f;
+    for(int i = 1; i <= lim; i++){
+        if(n % i == 0){
+            f.push_back(i);
+            f.push_back(n / i);
+            if((i*i) == n){
+                f.pop_back();
+            }
+        }
+    }
+    return f;
+}
+ll NOD ( ll n ) {
+    ll sqrtn = sqrt ( n );
+    ll res = 1;
+    for ( ll i = 0; i < primes.size() && primes[i] <= sqrtn; i++ ) {
+        if ( n % primes[i] == 0 ) {
+            ll p = 0; 
+            while ( n % primes[i] == 0 ) {
+                n /= primes[i];
+                p++;
+            }
+            sqrtn = sqrt ( n );
+            p++; 
+            res *= p; 
+        }
+    }
+    if ( n != 1 ) {
+        res *= 2; 
+    }
+    return res;
+}
+ll SOD( ll n ) {
+    ll res = 1;
+    ll sqrtn = sqrt ( n );
+    for ( ll i = 0; i < primes.size() && primes[i] <= sqrtn; i++ ) {
+        if ( n % primes[i] == 0 ) {
+            ll tempSum = 1; 
+            ll p = 1;
+            while ( n % primes[i] == 0 ) {
+                n /= primes[i];
+                p *= primes[i];
+                tempSum += p;
+            }
+            sqrtn = sqrt ( n );
+            res *= tempSum;
+        }
+    }
+    if ( n != 1 ) {
+        res *= ( n + 1 );
+    }
+    return res;
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>NOD</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope> 
+</snippet>

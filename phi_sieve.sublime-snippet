@@ -1,0 +1,21 @@
+<snippet>
+	<content><![CDATA[
+ll phi[N];
+void phisieve(ll n) {
+   
+    for (ll i = 0; i <= n; i++)
+        phi[i] = i;
+
+    for (ll i = 2; i <= n; i++) {
+        if (phi[i] == i) {
+            for (ll j = i; j <= n; j += i)
+                phi[j] -= phi[j] / i;
+        }
+    }
+}
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>PHISIEVE</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope>
+</snippet>
