@@ -1,0 +1,152 @@
+<snippet>
+	<content><![CDATA[
+struct info
+{
+	//Use required attributes
+	ll mn;
+
+	//Default Values
+	info() : mn(1e9) {};
+};
+
+struct SegTree
+{
+	ll N;
+	vector<info> st;
+	vector<bool> cLazy;
+	vector<ll> lazy;
+
+	void init(ll n)
+	{
+		N = n;
+		st.resize(4 * N + 5);
+		cLazy.assign(4 * N + 5, false);
+		lazy.assign(4 * N + 5, 0);
+	}
+
+	//Write reqd merge functions
+	void merge(info &cur, info &l, info &r) 
+	{
+		cur.mn = min(l.mn, r.mn);
+	}
+	
+	//Handle lazy propagation appriopriately
+	void propagate(ll node, ll L, ll R)
+	{
+		if(L != R)
+		{
+			cLazy[node*2] = 1;
+			cLazy[node*2 + 1] = 1;
+			lazy[node*2] = lazy[node];
+			lazy[node*2 + 1] = lazy[node]; 
+		}
+		st[node].mn = lazy[node];
+		cLazy[node] = 0;
+	}
+
+	void build(ll node, ll L, ll R)
+	{
+		if(L==R)
+		{
+			st[node].mn = 1e9;
+			return;
+		}
+		ll M=(L + R)/2;
+		build(node*2, L, M);
+		build(node*2 + 1, M + 1, R);
+		merge(st[node], st[node*2], st[node*2+1]);
+	}
+
+	info Query(ll node, ll L, ll R, ll i, ll j)
+	{
+		if(cLazy[node])
+			propagate(node, L, R);
+		if(j<L || i>R)
+			return info();
+		if(i<=L && R<=j)
+			return st[node];
+		ll M = (L + R)/2;
+		info left=Query(node*2, L, M, i, j);
+		info right=Query(node*2 + 1, M + 1, R, i, j);
+		info cur;
+		merge(cur, left, right);
+		return cur;
+	}
+
+	info pQuery(ll node, ll L, ll R, ll pos)
+	{
+		if(cLazy[node])
+			propagate(node, L, R);
+		if(L == R)
+			return st[node];
+		ll M = (L + R)/2;
+		if(pos <= M)
+			return pQuery(node*2, L, M, pos);
+		else
+			return pQuery(node*2 + 1, M + 1, R, pos);
+	}	
+
+	void Update(ll node, ll L, ll R, ll i, ll j, ll val)
+	{
+		if(cLazy[node])
+			propagate(node, L, R);
+		if(j<L || i>R)
+			return;
+		if(i<=L && R<=j)
+		{
+			cLazy[node] = 1;
+			lazy[node] = val;
+			propagate(node, L, R);
+			return;
+		}
+		ll M = (L + R)/2;
+		Update(node*2, L, M, i, j, val);
+		Update(node*2 + 1, M + 1, R, i, j, val);
+		merge(st[node], st[node*2], st[node*2 + 1]);
+	}
+
+	void pUpdate(ll node, ll L, ll R, ll pos, ll val)
+	{
+		if(cLazy[node])
+			propagate(node, L, R);
+		if(L == R)
+		{
+			cLazy[node] = 1;
+			lazy[node] = val;
+			propagate(node, L, R);
+			return;
+		}
+		ll M = (L + R)/2;
+		if(pos <= M)
+			pUpdate(node*2, L, M, pos, val);
+		else
+			pUpdate(node*2 + 1, M + 1, R, pos, val);
+		merge(st[node], st[node*2], st[node*2 + 1]);
+	}
+
+	info query(ll pos)
+	{
+		return pQuery(1, 1, N, pos);
+	}
+
+	info query(ll l, ll r)
+	{
+		return Query(1, 1, N, l, r);
+	}
+
+	void update(ll pos, ll val)
+	{
+		pUpdate(1, 1, N, pos, val);
+	}
+
+	void update(ll l, ll r, ll val)
+	{
+		Update(1, 1, N, l, r, val);
+	}
+};
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>SEGMENT_TREE_2</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.c++</scope> 
+</snippet>
